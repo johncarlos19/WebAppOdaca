@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login 10</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../dashboard/assets/css/style.css">
+
+</head>
+<body class="img js-fullheight" style="background-image: url(https://odaca.com.do/wp-content/uploads/2021/05/odaca-header.jpg);">
+<!--<body class="img js-fullheight" style="background-image: url(../dashboard/assets/img/bg.jpg);">-->
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Importadora Odaca</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <h3 class="mb-4 text-center">Iniciar Sesi&oacute;n</h3>
+                    <form action="/login" class="signin-form" method="post" id="login">
+                        <div class="form-group">
+                            <input type="text" id="user" class="form-control" name="user" placeholder="Usuario" required>
+                        </div>
+                        <div class="form-group">
+                            <input  id="password" type="password" name="password" class="form-control" placeholder="Contraseña" required>
+                            <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group" id="alertPassword" th:utext="${texto1}"></div>
+                        <div class="form-group">
+                            <button type="button" class="form-control btn btn-primary submit px-3" onclick="buscarUsuario()">Iniciar</button>
+                        </div>
+<!--                        <div class="form-group d-md-flex">-->
+<!--                            <div class="w-50">-->
+<!--                                <label class="checkbox-wrap checkbox-primary">Remember Me-->
+<!--                                    <input type="checkbox" checked>-->
+<!--                                    <span class="checkmark"></span>-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <div class="w-50 text-md-right">-->
+<!--                                <a href="#" style="color: #fff">Forgot Password</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="../dashboard/assets/js/jquery.min.js"></script>
+<script src="../dashboard/assets/js/popper.js"></script>
+<script src="../dashboard/assets/js/bootstrap.min.js"></script>
+<script src="../dashboard/assets/js/main.js"></script>
+<script src="../catalogo/assets/js/databaseIndexedDB.js"></script>
+
+</body>
+</html>
+

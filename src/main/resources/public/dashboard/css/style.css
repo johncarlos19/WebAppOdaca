@@ -1,0 +1,20 @@
+/* Bootstrap css */
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css";
+
+/* Google Material icons */
+@import "http://fonts.googleapis.com/icon?family=Material+Icons";
+
+/* Propeller css */
+@import "dist/css/propeller.min.css";
+
+/* Datatable bootstrap */
+@import "https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css";
+
+/* Datatable responsive */
+@import "https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap4.min.css";
+
+/* Datatable select */
+@import "https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css";
+
+/* Propeller Datatable */
+@import "data-table/css/pmd-datatable.css";

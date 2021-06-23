@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Catalogo - Configuracion</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../catalogo/assets/css/configuration.css">
+
+</head>
+
+<body>
+
+<div id="colorlib-page">
+
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+    <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="width: 325px;">
+        <nav id="colorlib-main-menu" role="navigation">
+            <ul>
+                <li class="colorlib-active"><h1 href="#">Configuracion</h1></li>
+                <li class=""><a href="#" onclick="sincronizarINV()">Sincronizar Inventario</a></li>
+                <li><a href="#" onclick="sincronizarModelos()">Sicronizar Modelo</a></li>
+                <li><a href="#" onclick="sincronizarCatalogo()">Sincronizar Catalogo</a></li>
+                <li><a href="#">Sicronizar Completo</a></li>
+                <li class=""><a href="/catalogo/home">Volver a Inicio</a></li>
+            </ul>
+        </nav>
+    </aside> <!-- END COLORLIB-ASIDE -->
+
+    <div id="colorlib-main">
+        <section class="ftco-section pt-4 mb-5 ftco-intro">
+            <div class="container-fluid px-3 px-md-0">
+                <div class="row">
+                    <div class="col-md-12 mb-4"><div id="progreso"></div></div>
+
+                    <div class="col-md-12 mb-4">
+                        <h1 class="h2">Sincronizar Inventario</h1>
+                        <p>Sincroniza todo los producto del inventario del almacen</p>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <h1 class="h2">Sincronizar Modelo</h1>
+                        <p>Sincroniza todo los modelos de motorcicleta registrado</p>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <h1 class="h2">Sincronizar Catalogo</h1>
+                        <p>Sincroniza los siguientes apartados: Productos Nuevos, Productos Destacados, Productos en Oferta y Producto Populares</p>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <h1 class="h2">Sincronizar Completo</h1>
+                        <p>Borra Todo en el dispositivo y sincroniza inventario, modelo y catalogo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div><!-- END COLORLIB-MAIN -->
+</div><!-- END COLORLIB-PAGE -->
+
+
+</section>
+
+
+<script src="../dashboard/assets/js/jquery.min.js"></script>
+<script src="../dashboard/assets/js/popper.js"></script>
+<script src="../dashboard/assets/js/bootstrap.min.js"></script>
+<script src="../dashboard/assets/js/main.js"></script>
+
+
+
+
+<script src="../catalogo/assets/js/catalogo.js"></script>
+<script src="../catalogo/assets/js/databaseIndexedDB.js"></script>
+<script src="../catalogo/assets/js/ajaxpeticiones.js"></script>
+
+<script>
+    function sincronizarINV(){
+        worker.postMessage({'cmd': 'getProductoSaveList'});
+
+    }
+    function sincronizarModelos(){
+        worker.postMessage({'cmd': 'Savemodelolist'});
+
+    }
+    function sincronizarCatalogo(){
+        worker.postMessage({'cmd': 'SaveActionlist', 'action':'destacado'});
+        worker.postMessage({'cmd': 'SaveActionlist', 'action':'nuevo'});
+        worker.postMessage({'cmd': 'SaveActionlist', 'action':'oferta'});
+        worker.postMessage({'cmd': 'SaveActionlist', 'action':'vendpop'});
+
+    }
+    $(document).ready(function() {
+
+
+
+    })
+</script>
+
+
+</body>
+
+</html>
