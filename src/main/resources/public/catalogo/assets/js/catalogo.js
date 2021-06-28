@@ -380,9 +380,9 @@ function getProductoComplete(obj,action){
                 console.log("No hay nada en la DB")
             }
 
-            $('#progreso').html("                        <div class='progress'>\n" +
-                "                            <div class='progress-bar' role='progressbar' id='linebar' style='width: 0%;' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100'>0%</div>\n"+
-                "                       </div>;")
+            // $('#progreso').html("                        <div class='progress'>\n" +
+            //     "                            <div class='progress-bar' role='progressbar' id='linebar' style='width: 0%;' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100'>0%</div>\n"+
+            //     "                       </div>;")
             for(var key in obj){
                 agregarProductoDB(obj[key])
                 count++;

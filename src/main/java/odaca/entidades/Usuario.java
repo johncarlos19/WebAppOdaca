@@ -86,6 +86,16 @@ public class Usuario implements Identifiable<String> {
         return contrasena;
     }
 
+    public String getNombreCompleto(){
+        if(nombre != null && apellido != null){
+            return nombre + " "+apellido;
+        }else if (nombre != null && apellido == null){
+            return nombre;
+        }else {
+            return "No found";
+        }
+    }
+
     public String getLactitud() {
         return lactitud;
     }

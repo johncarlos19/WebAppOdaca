@@ -2,6 +2,7 @@ package odaca.servicios;
 
 import odaca.entidades.Dispositivo;
 import odaca.entidades.Foto;
+import odaca.entidades.Usuario;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
@@ -22,6 +23,25 @@ public class DispositivoServicios extends GestionadDB<Dispositivo>{
     }
     public DispositivoServicios() {
         super(Dispositivo.class);
+    }
+
+
+    public List<Dispositivo> listDispUser(String user) {
+        List<Dispositivo> lista = null;
+        final Session session = getHibernateSession();
+
+//        EntityManager em = getEntityManager();
+        try {
+
+            Query query = session.createQuery("select p from Dispositivo p   where p.user = :id order by p.iddevice asc " );
+            query.setParameter("id",user);
+
+            //query.setParameter("nombre", apellido+"%");
+            lista = query.getResultList();
+
+        } finally {
+            session.close();
+        }return lista;
     }
 
 

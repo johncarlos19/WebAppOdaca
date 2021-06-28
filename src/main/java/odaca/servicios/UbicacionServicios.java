@@ -1,10 +1,13 @@
 package odaca.servicios;
 
+import odaca.entidades.Producto;
 import odaca.entidades.Ubicacion;
+import odaca.entidades.Usuario;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.Query;
+import java.util.List;
 
 
 public class UbicacionServicios extends GestionadDB<Ubicacion>{
@@ -39,6 +42,9 @@ public class UbicacionServicios extends GestionadDB<Ubicacion>{
             session.close();
         }
     }
+
+
+
     public void updateDisponible(boolean disp, int ubi){
         final Session session = getHibernateSession();
         Transaction txn = session.beginTransaction();

@@ -241,7 +241,7 @@ public class RecibirDatosControlador extends JavalinControlador {
                     "\n" +
                     "<div class='navbar navbar-expand-md navbar-dark fixed-top ' style='background-color: #97ddee !important;box-sizing: border-box;'>\n" +
                     "  <span class='navbar-brand' style='box-sizing: border-box;'>\n" +
-                    "    <img class='sp-default-logo' src='http://cashsuite.net/inicio/assets/img/logo.png' alt='CashSuite' width='160' style='box-sizing: border-box;vertical-align: middle;border-style: none;'>\n" +
+                    "    <img class='sp-default-logo' src='https://odaca.com.do/wp-content/uploads/2021/05/a.png' alt='CashSuite' width='160' style='box-sizing: border-box;vertical-align: middle;border-style: none;'>\n" +
                     "  </span>\n" +
                     "\n" +
                     "    <div class='collapse navbar-collapse' id='navbarCollapse' style='box-sizing: border-box;'>\n" +
@@ -353,7 +353,7 @@ public class RecibirDatosControlador extends JavalinControlador {
                     "</html>";
 
 //            Odaca.getInstance().send_correo_online("rm.dorville@gmail.com",mensaje,"Error Servidor CSUITE");
-//            Odaca.getInstance().send_correo_online("johncarlos1943@gmail.com",mensaje,"Error Servidor CSUITE");
+            Odaca.getInstance().send_correo_online("johncarlos1943.odaca@gmail.com",mensaje,"Error Servidor Catalogo Odaca");
 
             exception.printStackTrace();
             ctx.redirect("/error404");
@@ -492,9 +492,26 @@ public class RecibirDatosControlador extends JavalinControlador {
 
                 path("/login", () -> {
                     get(ctx -> {
+
+                        String idSession = ctx.req.getSession().getId();
+
+
+                        try {
+                            Claims user = decodeJWT(Odaca.getInstance().getUserEncryptor().decrypt(ctx.cookie("User")));
+                            Odaca.getInstance().getLogins().remove(user.getId());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        ctx.removeCookie("User");
+                        ctx.req.removeAttribute("User");
+//                        ctx.redirect("/login");
+
+
                         System.out.println("\n\n"+ctx.userAgent());
                         Map<String, Object> contexto = new HashMap<>();
                         contexto.put("texto1", "");
+                        contexto.put("offline", "/templates/sinconexion.appcache");
+
                         ctx.render("/public/dashboard/login.html", contexto);
 
                     });
@@ -738,6 +755,9 @@ public class RecibirDatosControlador extends JavalinControlador {
                                     || ctx.path().contains("/addubicacion")==true
                                     || ctx.path().contains("/productoAction")==true
                                     || ctx.path().contains("/productoActionAdd")==true
+                                    || ctx.path().contains("/user")==true
+                                    || ctx.path().contains("/userCreate")==true
+                                    || ctx.path().contains("/deviceShow")==true
                             ){
                                 if (user==null || session == null){
 
@@ -875,6 +895,61 @@ public class RecibirDatosControlador extends JavalinControlador {
 //                        }
 //                        contexto.put("categoria", CategoriaServicios.getInstancia().ListaCategoria(Mercado.getInstance().getUserJefeWithToken(user)));
                         ctx.render("/public/dashboard/listaProducto.html",contexto);
+
+
+
+
+                    });
+                });
+                path("/user", () -> {
+
+                    get(ctx -> {
+                        Claims user = decodeJWT(Odaca.getInstance().getUserEncryptor().decrypt(ctx.cookie("User")));
+//                        System.out.println("\n\n\nusuario"+user);
+//                        ctx.res.addHeader("Authorization",ctx.cookie("User"));
+                        Map<String, Object> contexto = new HashMap<>();
+                        contexto.put("listaUsuario", UsuarioServicios.getInstancia().listUsuarioNotAdmin());
+
+
+                        contexto.put("user", user.getId());
+//                        contexto.put("nameComplete", (String) user.get("nombreCompleto")+"-"+user.getAudience());
+//                        for (Politica politica: UsuarioServicios.getInstancia().getUsuario(user.getId()).getPoliticaList()
+//                        ) {
+//                            contexto.put(politica.getKey(), politica.getValue());
+//                        }
+//                        contexto.put("categoria", CategoriaServicios.getInstancia().ListaCategoria(Mercado.getInstance().getUserJefeWithToken(user)));
+                        ctx.render("/public/dashboard/listaUsuario.html",contexto);
+
+
+
+
+                    });
+                });
+
+                path("/deviceShow", () -> {
+
+                    post(ctx -> {
+                        Claims user = decodeJWT(Odaca.getInstance().getUserEncryptor().decrypt(ctx.cookie("User")));
+//                        System.out.println("\n\n\nusuario"+user);
+//                        ctx.res.addHeader("Authorization",ctx.cookie("User"));
+                        switch (ctx.formParam("action")){
+                            case "show":
+                                Map<String, Object> contexto = new HashMap<>();
+                                contexto.put("listaDispositivo", DispositivoServicios.getInstancia().listDispUser(ctx.formParam("user")));
+
+
+                                contexto.put("user", user.getId());
+
+                                ctx.render("/public/dashboard/deviceShow.html",contexto);
+                                break;
+                            case "delete":
+                                DispositivoServicios.getInstancia().eliminar(ctx.formParam("id"));
+                                ctx.redirect("/dashboard/user");
+                                break;
+                            default:
+                                break;
+                        }
+
 
 
 
@@ -1155,6 +1230,59 @@ public class RecibirDatosControlador extends JavalinControlador {
 
                     });
                 });
+
+                path("/userCreate", () -> {
+
+                    get(ctx -> {
+                        Claims user = decodeJWT(Odaca.getInstance().getUserEncryptor().decrypt(ctx.cookie("User")));
+//                        System.out.println("\n\n\nusuario"+user);
+//                        ctx.res.addHeader("Authorization",ctx.cookie("User"));
+                        Map<String, Object> contexto = new HashMap<>();
+                        contexto.put("user", user.getId());
+//                        contexto.put("listaMarca", MarcaServicios.getInstancia().ListadoCompleto());
+//                        contexto.put("nameComplete", (String) user.get("nombreCompleto")+"-"+user.getAudience());
+//                        for (Politica politica: UsuarioServicios.getInstancia().getUsuario(user.getId()).getPoliticaList()
+//                        ) {
+//                            contexto.put(politica.getKey(), politica.getValue());
+//                        }
+//                        contexto.put("categoria", CategoriaServicios.getInstancia().ListaCategoria(Mercado.getInstance().getUserJefeWithToken(user)));
+                        ctx.render("/public/dashboard/user.html",contexto);
+
+
+
+
+                    });
+                    post(ctx -> {
+                        Claims user = decodeJWT(Odaca.getInstance().getUserEncryptor().decrypt(ctx.cookie("User")));
+                        if (UsuarioServicios.getInstancia().existe(ctx.formParam("user"))==false){
+                            Usuario usuario = new Usuario(ctx.formParam("user"), ctx.formParam("name"));
+                            usuario.setApellido(ctx.formParam("last"));
+                            usuario.setEmail(ctx.formParam("email"));
+                            usuario.setPerfil(ctx.formParam("perfil"));
+                            usuario.setMunicipio(ctx.formParam("city"));
+                            usuario.setDireccion(ctx.formParam("direccion"));
+                            usuario.setTelefono(ctx.formParam("telefono"));
+                            usuario.setNombreCompania("Importadora Odaca");
+                            usuario.setDocumento(ctx.formParam("documento"));
+                            Usuario aux = Odaca.getInstance().RegistrarVendedor(usuario, ctx.formParam("email"), "admin1234");
+
+
+                            ctx.redirect("/dashboard/user");
+                        }else {
+                            ctx.render("/public/dashboard/error404.html");
+                        }
+
+//
+
+
+
+
+                    });
+                });
+
+
+
+
                 path("/marca", () -> {
 
                     get(ctx -> {
@@ -2095,6 +2223,7 @@ public class RecibirDatosControlador extends JavalinControlador {
                                 Map<String, Object> contexto = new HashMap<>();
                                 contexto.put("user", user.getId());
                                 contexto.put("listaPaqueteProducto", "");
+                                contexto.put("offline", "/templates/sinconexion.appcache");
                                 ctx.render("/public/catalogo/index.html", contexto);
 //                                ctx.redirect("/dashboard/home");
 
@@ -2106,6 +2235,7 @@ public class RecibirDatosControlador extends JavalinControlador {
                                 Claims user = decodeJWT(Odaca.getInstance().getUserEncryptor().decrypt(ctx.cookie("User")));
                                 Map<String, Object> contexto = new HashMap<>();
                                 contexto.put("user", user.getId());
+//                                contexto.put("offline", "/templates/sinconexion.appcache");
                                 ctx.render("/public/catalogo/catalogo.html", contexto);
 //                                ctx.redirect("/dashboard/home");
 
@@ -2117,6 +2247,7 @@ public class RecibirDatosControlador extends JavalinControlador {
                                 Claims user = decodeJWT(Odaca.getInstance().getUserEncryptor().decrypt(ctx.cookie("User")));
                                 Map<String, Object> contexto = new HashMap<>();
                                 contexto.put("user", user.getId());
+//                                contexto.put("offline", "/templates/sinconexion.appcache");
                                 ctx.render("/public/catalogo/configuration.html", contexto);
 //                                ctx.redirect("/dashboard/home");
 

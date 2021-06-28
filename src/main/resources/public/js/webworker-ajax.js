@@ -78,6 +78,14 @@ this.addEventListener('message', function (e) {
 
                 })
                 .catch(function (error) {
+                    try{
+                        $('#progreso').html("");
+                    }catch (e) {
+
+                    }
+
+
+                    alert("Error:\n"+error);
                     // handle error
                     console.log("Error:");
                     console.log(error);
@@ -105,6 +113,9 @@ this.addEventListener('message', function (e) {
                             return response.data;
                         }
                     } catch (error) {
+
+
+
                         postMessage({'cmd': 'timeout'});
                         return response.data;
                         // expected output: ReferenceError: nonExistentFunction is not defined
@@ -292,6 +303,14 @@ this.addEventListener('message', function (e) {
                                     return response.data;
                                 }
                             } catch (error) {
+                                try{
+                                    $('#progreso').html("");
+                                }catch (e) {
+
+                                }
+
+
+                                alert("Error:\n"+error);
                                 postMessage({'cmd': 'timeout'});
                                 return response.data;
                                 // expected output: ReferenceError: nonExistentFunction is not defined
@@ -327,6 +346,7 @@ this.addEventListener('message', function (e) {
                                     return response.data;
                                 }
                             } catch (error) {
+
                                 postMessage({'cmd': 'timeout'});
                                 return response.data;
                                 // expected output: ReferenceError: nonExistentFunction is not defined
@@ -337,6 +357,14 @@ this.addEventListener('message', function (e) {
                         })
                         .catch(function (error) {
                             // handle error
+                            try{
+                                $('#progreso').html("");
+                            }catch (e) {
+
+                            }
+
+
+                            alert("Error:\n"+error);
                             console.log("Error:");
                             console.log(error);
                             postMessage({'cmd': 'timeout'});
@@ -372,6 +400,14 @@ this.addEventListener('message', function (e) {
                         })
                         .catch(function (error) {
                             // handle error
+                            try{
+                                $('#progreso').html("");
+                            }catch (e) {
+
+                            }
+
+
+                            alert("Error:\n"+error);
                             console.log("Error:");
                             console.log(error);
                             postMessage({'cmd': 'timeout'});
@@ -406,6 +442,15 @@ this.addEventListener('message', function (e) {
 
                         })
                         .catch(function (error) {
+
+                            try{
+                                $('#progreso').html("");
+                            }catch (e) {
+
+                            }
+
+
+                            alert("Error:\n"+error);
                             // handle error
                             console.log("Error:");
                             console.log(error);
@@ -482,6 +527,14 @@ this.addEventListener('message', function (e) {
 
                 })
                 .catch(function (error) {
+                    try{
+                        $('#progreso').html("");
+                    }catch (e) {
+
+                    }
+
+
+                    alert("Error:\n"+error);
                     // handle error
                     console.log("Error:");
                     console.log(error);

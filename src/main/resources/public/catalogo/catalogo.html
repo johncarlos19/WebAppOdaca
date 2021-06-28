@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Home - Brand</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../catalogo/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
@@ -27,9 +27,8 @@
     <link rel="stylesheet" href="../catalogo/assets/css/Responsive-Client-Grid.css">
     <link rel="stylesheet" href="../catalogo/assets/css/Studious-selectbox.css">
     <link rel="stylesheet" href="../catalogo/assets/css/Team-Grid.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../catalogo/assets/js/datatable/datatables.min.css"/>
     <style>
         .dtr-title {
             font-weight:bold;
@@ -42,12 +41,13 @@
     <div class="container"><a class="navbar-brand logo" href="#"><img src="../catalogo/assets/img/marcas/logo%20odaca.jpg" alt="Odaca-Logo"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1" style="background-color: white">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item item"><a class="nav-link" href="/catalogo/home">Inicio</a></li>
-                <li class="nav-item item"><a class="nav-link" href="/catalogo/home#oferta">Oferta</a></li>
-                <li class="nav-item item"><a class="nav-link" href="/catalogo/home#nuevo">NUEVO</a></li>
-                <li class="nav-item item"><a class="nav-link" href="/catalogo/home#popular">POPULAR</a></li>
+                <li class="nav-item item"><a class="nav-link " href="/catalogo/home">Inicio</a></li>
+                <li class="nav-item item"><a class="nav-link" href="#oferta">Oferta</a></li>
+                <li class="nav-item item"><a class="nav-link" href="#nuevo">NUEVO</a></li>
+                <li class="nav-item item"><a class="nav-link" href="#popular">POPULAR</a></li>
                 <li class="nav-item item"><a class="nav-link active" href="/catalogo/producto">CATALOGO COMPLETO</a></li>
-                <li class="nav-item item"><a class="nav-link" href="/logout"><span th:text="${user}">PRUEBA</span><span>-</span>SALIR</a></li>
+                <li class="nav-item item"><a class="nav-link" href="/catalogo/configuracion">COnfiguracion</a></li>
+                <li class="nav-item item"><a class="nav-link" href="#" onclick="logout()"><span th:text="${user}">PRUEBA</span><span>-</span>SALIR</a></li>
             </ul>
         </div>
     </div>
@@ -127,11 +127,14 @@
         </div>
     </div>
 </section>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<script src="../dashboard/assets/js/jquery.min.js"></script>
+<script src="../dashboard/assets/js/bootstrap.min.js"></script>
+<script src="../dashboard/assets/js/jquery.easing.min.js"></script>
+<script src="../dashboard/assets/js/baguetteBox.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>-->
 <script src="../catalogo/assets/js/smoothproducts.min.js"></script>
 <script src="../catalogo/assets/js/theme.js"></script>
 <script src="../catalogo/assets/js/milagroso2.js"></script>
@@ -142,70 +145,94 @@
     impListadoProducto = true
 </script>
 <script src="../catalogo/assets/js/ajaxpeticiones.js"></script>
-<!-- Jquery js -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 
-<!-- Datatable js -->
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-<!-- Datatable Bootstrap -->
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="../catalogo/assets/js/datatable/datatables.js"></script>
+<!--&lt;!&ndash; Jquery js &ndash;&gt;-->
+<!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
 
-<!-- Datatable responsive js-->
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
 
-<!-- Datatable responsive js-->
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap4.min.js"></script>
-<!-- Datatable select js-->
+<!--&lt;!&ndash; Datatable js &ndash;&gt;-->
+<!--<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>-->
 
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+<!--&lt;!&ndash; Datatable Bootstrap &ndash;&gt;-->
+<!--<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>-->
 
-<!-- Datatable Initialize js-->
-<script type="text/javascript" language="javascript" src="../data-table/js/pmd-data-table-responsive.js"></script>
+<!--&lt;!&ndash; Datatable responsive js&ndash;&gt;-->
+<!--<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>-->
+
+<!--&lt;!&ndash; Datatable responsive js&ndash;&gt;-->
+<!--<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap4.min.js"></script>-->
+<!--&lt;!&ndash; Datatable select js&ndash;&gt;-->
+
+<!--<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>-->
+
+<!--&lt;!&ndash; Datatable Initialize js&ndash;&gt;-->
+<!--<script type="text/javascript" language="javascript" src="../data-table/js/pmd-data-table-responsive.js"></script>-->
 <script>
+    function logout() {
+
+        if (navigator.onLine === false){
+            window.location.href = "/login";
+        }else{
+            window.location.href = "/login";
+        }
+
+    }
     $(document).ready(function() {
-
-        // $('#datatable2').DataTable({
-        //     "language": {
+        // if('serviceWorker' in navigator) {
+        //     navigator.serviceWorker.register('../sw-catalogo.js',{scope: "/"})
+        //         .then(function(registration) {
+        //             console.log('Service Worker Registered');
+        //         });
         //
-        //         "sProcessing":     "Procesando...",
-        //         "sLengthMenu":     "Mostrar _MENU_ registros",
-        //         "sZeroRecords":    "No se encontraron resultados",
-        //         "sEmptyTable":     "Ningún dato disponible en esta tabla",
-        //         "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-        //         "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
-        //         "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-        //         "sInfoPostFix":    "",
-        //         "sSearch":         "Buscar:",
-        //         "sUrl":            "",
-        //         "sInfoThousands":  ",",
-        //         "sLoadingRecords": "Cargando...",
-        //         "oPaginate": {
-        //             "sFirst":    "Primero",
-        //             "sLast":     "Último",
-        //             "sNext":     "Siguiente",
-        //             "sPrevious": "Anterior"
-        //         },
-        //         "oAria": {
-        //             "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-        //             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        //         }},
-        //     "order": [ 2, "asc" ],
-        //
-        //         "columns":[
-        //             {"data": "Imagen"},
-        //             {"data": "Codigo"},
-        //             {"data": "Descripcion"},
-        //             {"data": "Referencia"},
-        //             {"data": "Marca"},
-        //             {"data": "Modelos"},
-        //             {"data": "Disponible"}]
-        //
-        //
-        // });
+        //     navigator.serviceWorker.ready.then(function(registration) {
+        //         console.log('Service Worker Ready');
+        //     });
+        // }
 
 
+        $('#datatable2').DataTable({
+            "language": {
+
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }},
+            "order": [ 2, "asc" ],
+
+                "columns":[
+                    {"data": "Imagen"},
+                    {"data": "Codigo"},
+                    {"data": "Descripcion"},
+                    {"data": "Referencia"},
+                    {"data": "Marca"},
+                    {"data": "Modelos"},
+                    {"data": "Disponible"}]
+
+
+        });
+        //
+        //
         // var marca = getUrlParameter("marca")
         // var modelo = getUrlParameter("modelo")
         // var buildString = ""

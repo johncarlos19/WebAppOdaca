@@ -469,7 +469,7 @@ function agregarUsuarioValido(aux) {
             }
 
         }else{
-            console.log("Estudiante no encontrado...");
+            console.log("Usuario no encontrado para actualizar...");
             var request = usuario.put(aux);
 
             request.onerror = function (e) {
@@ -479,8 +479,8 @@ function agregarUsuarioValido(aux) {
             };
 
             request.onsuccess = function (e) {
+                console.log("Datos Procesado con exito, ya que no se encontraron");
                 setTimeout(function(){ document.getElementById("cambiarPassowrd").submit() }, 1000);
-                console.log("Datos Procesado con exito");
             };
         }
     };
@@ -621,7 +621,7 @@ function buscarUsuario() {
                     window.location.href = "/catalogo/home";
                 }else{
                     var DOB = document.createElement("input");
-                    DOB.setAttribute("type", "text");
+                    DOB.setAttribute("type", "hidden");
                     DOB.setAttribute("name", "iddevice");
                     DOB.setAttribute("value", resultado.iddevice);
                     form.appendChild(DOB)
@@ -630,7 +630,7 @@ function buscarUsuario() {
 
             } else {
                 var DOB = document.createElement("input");
-                DOB.setAttribute("type", "text");
+                DOB.setAttribute("type", "hidden");
                 DOB.setAttribute("name", "iddevice");
                 DOB.setAttribute("value", resultado.iddevice);
                 form.appendChild(DOB)

@@ -4,6 +4,7 @@ import odaca.entidades.Usuario;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
+import java.util.List;
 
 public class UsuarioServicios extends GestionadDB<Usuario> {
     private static UsuarioServicios instancia;
@@ -55,6 +56,24 @@ public class UsuarioServicios extends GestionadDB<Usuario> {
         //usuario.setUsuario(id);
 
         return  usuario;//editar(usuario);
+    }
+
+    public List<Usuario> listUsuarioNotAdmin() {
+        List<Usuario> lista = null;
+        final Session session = getHibernateSession();
+
+//        EntityManager em = getEntityManager();
+        try {
+
+            Query query = session.createQuery("select p from Usuario p   where p.perfil != :id order by p.usuario desc " );
+            query.setParameter("id","Admin");
+
+            //query.setParameter("nombre", apellido+"%");
+            lista = query.getResultList();
+
+        } finally {
+            session.close();
+        }return lista;
     }
     public boolean existe(String us){
 

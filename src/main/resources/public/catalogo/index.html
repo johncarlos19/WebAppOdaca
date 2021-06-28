@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 
 <head>
     <meta charset="utf-8">
@@ -42,7 +42,7 @@
                     <li class="nav-item item"><a class="nav-link" href="#popular">POPULAR</a></li>
                     <li class="nav-item item"><a class="nav-link" href="/catalogo/producto">CATALOGO COMPLETO</a></li>
                     <li class="nav-item item"><a class="nav-link" href="/catalogo/configuracion">COnfiguracion</a></li>
-                    <li class="nav-item item"><a class="nav-link" href="/logout"><span th:text="${user}">PRUEBA</span><span>-</span>SALIR</a></li>
+                    <li class="nav-item item"><a class="nav-link" href="#" onclick="logout()"><span th:text="${user}">PRUEBA</span><span>-</span>SALIR</a></li>
                 </ul>
             </div>
         </div>
@@ -639,8 +639,8 @@
                                                 <div class="col">
                                                     <p>Estado</p>
                                                 </div>
-                                                <div class="col" id="disponible">
-                                                    <p class="text-right">&nbsp;Disponible</p>
+                                                <div class="col" >
+                                                    <p class="text-right" id="disponible">&nbsp;Disponible</p>
                                                 </div>
                                             </div>
                                             <hr style="background: #323232;">
@@ -661,10 +661,15 @@
             </div>
         </div>
     </div>
-    <script src="../dashboard/assets/js/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<!--    <script src="../dashboard/assets/js/jquery.min.js"></script>-->
+<!--    <script src="../dashboard/assets/js/bootstrap.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>-->
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>-->
+    <script src="../dashboard/assets/js/jquery.min.js"></script>
+    <script src="../dashboard/assets/js/bootstrap.min.js"></script>
+    <script src="../dashboard/assets/js/jquery.easing.min.js"></script>
+    <script src="../dashboard/assets/js/baguetteBox.min.js"></script>
     <script src="../catalogo/assets/js/smoothproducts.min.js"></script>
     <script src="../catalogo/assets/js/theme.js"></script>
     <script src="../catalogo/assets/js/--mp---Multiple-items-slider-responsive-1.js"></script>
@@ -676,9 +681,28 @@
     <script src="../catalogo/assets/js/ajaxpeticiones.js"></script>
 
     <script>
+        function logout() {
+
+            if (navigator.onLine === false){
+                window.location.href = "/login";
+            }else{
+                window.location.href = "/login";
+            }
+
+        }
         $(document).ready(function() {
             impListadoModelo = true;
             impListadoAction = true;
+            // if('serviceWorker' in navigator) {
+            //     navigator.serviceWorker.register('../sw.js',{scope: "/"})
+            //         .then(function(registration) {
+            //             console.log('Service Worker Registered');
+            //         });
+            //
+            //     navigator.serviceWorker.ready.then(function(registration) {
+            //         console.log('Service Worker Ready');
+            //     });
+            // }
             // worker.postMessage({'cmd': 'getactionProducto', 'action':'destacado'});
             // worker.postMessage({'cmd': 'getactionProducto', 'action':'nuevo'});
             // worker.postMessage({'cmd': 'getactionProducto', 'action':'oferta'});
