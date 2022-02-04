@@ -473,7 +473,7 @@ public class RecibirDatosControlador extends JavalinControlador {
                     }else {
                         Map<String, Object> contexto2 = new HashMap<>();
                         contexto2.put("user", user);
-                        contexto2.put("iddevice", dispositivo.getIddevice());
+                        contexto2.put("iddevice", dispositivo.getIdDevice());
                         contexto2.put("texto1", "<div class='alert alert-danger alert-dismissible'>\n" +
                                 "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>\n" +
                                 "<h4><i class='icon fa fa-ban'></i> Alerta!</h4>\n" +
@@ -565,28 +565,84 @@ public class RecibirDatosControlador extends JavalinControlador {
 
                                     if(ctx.formParam("iddevice")!=null){
                                         Dispositivo dispositivo = DispositivoServicios.getInstancia().getDispositivoAnteDeExpirar(ctx.formParam("iddevice"),12);
-                                        if (dispositivo.isValidate()==true){
-                                            if(ctx.formParam("password").equalsIgnoreCase("admin1234")){
-                                                Map<String, Object> contexto2 = new HashMap<>();
-                                                contexto2.put("user", user);
-                                                contexto2.put("password", passwordEncryptor.encrypt(ctx.formParam("password")));
+                                        try {
+                                            if (dispositivo.isValidate()==true){
+                                                if(ctx.formParam("password").equalsIgnoreCase("admin1234")){
+                                                    Map<String, Object> contexto2 = new HashMap<>();
+                                                    contexto2.put("user", user);
+                                                    contexto2.put("password", passwordEncryptor.encrypt(ctx.formParam("password")));
 //                            ctx.render("/public/webPage/login_error.html",contexto2 );
-                                                ctx.render("/public/dashboard/restablecerpassword.html",contexto2 );
+                                                    ctx.render("/public/dashboard/restablecerpassword.html",contexto2 );
+                                                }else {
+                                                    switch (perfil){
+                                                        case "Oficina":
+                                                            ctx.redirect("/dashboard/home");
+                                                            break;
+                                                        case "Admin":
+                                                            ctx.redirect("/dashboard/home");
+                                                            break;
+                                                        case "Vendedor":
+                                                            ctx.redirect("/catalogo");
+                                                            break;
+                                                    }
+                                                }
                                             }else {
+                                                dispositivo.setNumberValidate(Odaca.getInstance().getRandomNumberString());
+                                                String mensaje = "<!DOCTYPE html>\n" +
+                                                        "<html lang='en'>\n" +
+                                                        "<head>\n" +
+                                                        "    <meta charset='UTF-8'>\n" +
+                                                        "    <title>Validation</title>\n" +
+                                                        "</head>\n" +
+                                                        "<body>\n" +
+                                                        "<div>\n" +
+                                                        "    <p>Un dispositivo (id='<span>"+dispositivo.getIdDevice()+"</span>') intenta acceder con el usuario: <span>"+dispositivo.getUsuario()+"</span></p>\n" +
+                                                        "    <p>El userAgent es: <span>"+dispositivo.getUseragent()+"</span></p>\n" +
+                                                        "    <p>Su codigo de validación es: <span>"+dispositivo.getNumberValidate()+"</span></p>\n" +
+                                                        "</div>\n" +
+                                                        "\n" +
+                                                        "</body>\n" +
+                                                        "</html>";
                                                 switch (perfil){
                                                     case "Oficina":
-                                                        ctx.redirect("/dashboard/home");
+                                                        Odaca.getInstance().send_correo_online("johncarlos1943.odaca@gmail.com",mensaje,"CODE VALIDATE");
+                                                        Odaca.getInstance().send_correo_online("ventas@odaca.com.do",mensaje,"CODE VALIDATE");
                                                         break;
                                                     case "Admin":
-                                                        ctx.redirect("/dashboard/home");
+                                                        Odaca.getInstance().send_correo_online("johncarlos1943.odaca@gmail.com",mensaje,"CODE VALIDATE");
+
                                                         break;
                                                     case "Vendedor":
-                                                        ctx.redirect("/catalogo");
+                                                        Odaca.getInstance().send_correo_online("johncarlos1943.odaca@gmail.com",mensaje,"CODE VALIDATE");
+                                                        Odaca.getInstance().send_correo_online("ventas@odaca.com.do",mensaje,"CODE VALIDATE");
                                                         break;
                                                 }
+
+                                                DispositivoServicios.getInstancia().editar(dispositivo);
+                                                Map<String, Object> contexto2 = new HashMap<>();
+                                                contexto2.put("user", ctx.formParam("user"));
+                                                contexto2.put("iddevice", dispositivo.getIdDevice());
+                                                contexto2.put("texto1", "");
+                                                contexto2.put("password", ctx.formParam("password"));
+//                            ctx.render("/public/webPage/login_error.html",contexto2 );
+                                                ctx.render("/public/dashboard/validate.html",contexto2 );
                                             }
-                                        }else {
-                                            dispositivo.setNumberValidate(Odaca.getInstance().getRandomNumberString());
+                                        }catch (NullPointerException e){
+                                            System.out.println("\nNo existe en el servidor");
+                                            e.printStackTrace();
+
+                                            Dispositivo dispositivo1 = new Dispositivo();
+                                            dispositivo1.setIdDevice(ctx.formParam("iddevice"));
+                                            System.out.println("\n\nEl id es"+dispositivo1.getIdDevice());
+                                            dispositivo1.setUsuario(ctx.formParam("user"));
+                                            dispositivo1.setNumberValidate(Odaca.getInstance().getRandomNumberString());
+                                            dispositivo1.setUseragent(ctx.userAgent());
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.add(calendar.MONTH,12);
+                                            Timestamp timestamp = new Timestamp(calendar.getTimeInMillis());
+                                            dispositivo1.setFechaExpiracion(timestamp);
+                                            DispositivoServicios.getInstancia().createAndReturnObjectWithUniqueId(dispositivo1);
+
                                             String mensaje = "<!DOCTYPE html>\n" +
                                                     "<html lang='en'>\n" +
                                                     "<head>\n" +
@@ -595,9 +651,9 @@ public class RecibirDatosControlador extends JavalinControlador {
                                                     "</head>\n" +
                                                     "<body>\n" +
                                                     "<div>\n" +
-                                                    "    <p>Un dispositivo (id='<span>"+dispositivo.getIddevice()+"</span>') intenta acceder con el usuario: <span>"+dispositivo.getUser()+"</span></p>\n" +
-                                                    "    <p>El userAgent es: <span>"+dispositivo.getUseragent()+"</span></p>\n" +
-                                                    "    <p>Su codigo de validación es: <span>"+dispositivo.getNumberValidate()+"</span></p>\n" +
+                                                    "    <p>Un dispositivo (id='<span>"+dispositivo1.getIdDevice()+"</span>') intenta acceder con el usuario: <span>"+dispositivo1.getUsuario()+"</span></p>\n" +
+                                                    "    <p>El userAgent es: <span>"+dispositivo1.getUseragent()+"</span></p>\n" +
+                                                    "    <p>Su codigo de validación es: <span>"+dispositivo1.getNumberValidate()+"</span></p>\n" +
                                                     "</div>\n" +
                                                     "\n" +
                                                     "</body>\n" +
@@ -616,21 +672,20 @@ public class RecibirDatosControlador extends JavalinControlador {
                                                     Odaca.getInstance().send_correo_online("ventas@odaca.com.do",mensaje,"CODE VALIDATE");
                                                     break;
                                             }
-
-                                            DispositivoServicios.getInstancia().editar(dispositivo);
                                             Map<String, Object> contexto2 = new HashMap<>();
                                             contexto2.put("user", ctx.formParam("user"));
-                                            contexto2.put("iddevice", dispositivo.getIddevice());
+                                            contexto2.put("iddevice", dispositivo1.getIdDevice());
                                             contexto2.put("texto1", "");
                                             contexto2.put("password", ctx.formParam("password"));
 //                            ctx.render("/public/webPage/login_error.html",contexto2 );
                                             ctx.render("/public/dashboard/validate.html",contexto2 );
+
                                         }
                                     }else {
                                         Dispositivo dispositivo = new Dispositivo();
-                                        dispositivo.setIddevice(Odaca.getInstance().generateID());
-                                        System.out.println("\n\nEl id es"+dispositivo.getIddevice());
-                                        dispositivo.setUser(ctx.formParam("user"));
+                                        dispositivo.setIdDevice(Odaca.getInstance().generateID());
+                                        System.out.println("\n\nEl id es"+dispositivo.getIdDevice());
+                                        dispositivo.setUsuario(ctx.formParam("user"));
                                         dispositivo.setNumberValidate(Odaca.getInstance().getRandomNumberString());
                                         dispositivo.setUseragent(ctx.userAgent());
                                         Calendar calendar = Calendar.getInstance();
@@ -647,7 +702,7 @@ public class RecibirDatosControlador extends JavalinControlador {
                                                 "</head>\n" +
                                                 "<body>\n" +
                                                 "<div>\n" +
-                                                "    <p>Un dispositivo (id='<span>"+dispositivo.getIddevice()+"</span>') intenta acceder con el usuario: <span>"+dispositivo.getUser()+"</span></p>\n" +
+                                                "    <p>Un dispositivo (id='<span>"+dispositivo.getIdDevice()+"</span>') intenta acceder con el usuario: <span>"+dispositivo.getUsuario()+"</span></p>\n" +
                                                 "    <p>El userAgent es: <span>"+dispositivo.getUseragent()+"</span></p>\n" +
                                                 "    <p>Su codigo de validación es: <span>"+dispositivo.getNumberValidate()+"</span></p>\n" +
                                                 "</div>\n" +
@@ -670,7 +725,7 @@ public class RecibirDatosControlador extends JavalinControlador {
                                         }
                                         Map<String, Object> contexto2 = new HashMap<>();
                                         contexto2.put("user", ctx.formParam("user"));
-                                        contexto2.put("iddevice", dispositivo.getIddevice());
+                                        contexto2.put("iddevice", dispositivo.getIdDevice());
                                         contexto2.put("texto1", "");
                                         contexto2.put("password", ctx.formParam("password"));
 //                            ctx.render("/public/webPage/login_error.html",contexto2 );
@@ -970,6 +1025,7 @@ public class RecibirDatosControlador extends JavalinControlador {
                         System.out.println("el id es"+id);
                         if (id!=null){
                             Producto producto = ProductoServicios.getInstancia().getProductoConFoto(id);
+                            System.out.println("");
                             Map<String, Object> contexto = new HashMap<>();
                             contexto.put("producto", producto);
                         contexto.put("user", user.getId());

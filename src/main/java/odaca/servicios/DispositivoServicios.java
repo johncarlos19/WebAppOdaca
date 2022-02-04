@@ -33,7 +33,7 @@ public class DispositivoServicios extends GestionadDB<Dispositivo>{
 //        EntityManager em = getEntityManager();
         try {
 
-            Query query = session.createQuery("select p from Dispositivo p   where p.user = :id order by p.iddevice asc " );
+            Query query = session.createQuery("select p from Dispositivo p   where p.usuario = :id order by p.idDevice asc " );
             query.setParameter("id",user);
 
             //query.setParameter("nombre", apellido+"%");
@@ -54,14 +54,20 @@ public class DispositivoServicios extends GestionadDB<Dispositivo>{
             calendar.add(calendar.MONTH,1*plazo);
             Timestamp timestamp = new Timestamp(calendar.getTimeInMillis());
 
-            Query query = session.createQuery("select d from Dispositivo d where d.fechaExpiracion <= :fecha and d.iddevice = :id" );
+            Query query = session.createQuery("select d from Dispositivo d where d.fechaExpiracion <= :fecha and d.idDevice= :id" );
             query.setParameter("fecha",timestamp);
             query.setParameter("id",id);
 
 
             //query.setParameter("nombre", apellido+"%");
-            Dispositivo lista = (Dispositivo) query.getSingleResult() ;
-            return lista;
+            try {
+                Dispositivo lista = (Dispositivo) query.getSingleResult() ;
+                return lista;
+            }catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
+
         }catch (NullPointerException e){
             return null;
         }finally {

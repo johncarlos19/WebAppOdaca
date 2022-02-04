@@ -298,8 +298,8 @@
                                                 <!--                                                    <img th:src="${aux.foto.fotoBase}" class="img" id="imgActual" style="max-height: 250px; max-width: 250px;"  alt="../dashboard/assets/img/faces/marc.jpg" src="../dashboard/assets/img/faces/marc.jpg"  />-->
                                                 <!--                                                </td>-->
 
-                                                <td th:text="${aux.iddevice}"></td>
-                                                <td th:text="${aux.user}"></td>
+                                                <td th:text="${aux.idDevice}"></td>
+                                                <td th:text="${aux.usuario}"></td>
                                                 <td th:text="${aux.useragent}"></td>
                                                 <td class="text-uppercase" th:text="${aux.validate}"></td>
 
@@ -310,9 +310,9 @@
 
                                                     <div class="btn-group">
                                                         <form action="/dashboard/deviceShow" method="post">
-                                                            <input type="hidden" th:value="${aux.iddevice}" name="id">
+                                                            <input type="hidden" th:value="${aux.idDevice}" name="id">
                                                             <input type="hidden" value="delete" name="action">
-                                                            <button th:id="${aux.iddevice}" class="btn btn-danger btnEliminarCategoria" type="submit" value="eliminar"><i class="fa fa-times"></i></button>
+                                                            <button th:id="${aux.idDevice}" class="btn btn-danger btnEliminarCategoria" type="submit" value="eliminar"><i class="fa fa-times"></i></button>
                                                         </form>
 
 

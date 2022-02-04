@@ -65,7 +65,22 @@ public class Odaca {
                 usuario.setTelefono("8098230775");
                 usuario.setNombreCompania("Importadora Odaca");
                 usuario.setDocumento("125562");
-                Usuario aux = RegistrarVendedor(usuario, "admin@odaca.com.do", "admin1234");
+                Usuario aux = RegistrarVendedor(usuario, "admin@odaca.com.do", "C@stillo30");
+
+                Marca marca = new Marca("X1000");
+                MarcaServicios.getInstancia().crear(marca);
+                Marca marca1 = new Marca("ELITE");
+                MarcaServicios.getInstancia().crear(marca1);
+                Marca marca2 = new Marca("TURBO");
+                MarcaServicios.getInstancia().crear(marca2);
+                Marca marca3 = new Marca("TURBO PLT");
+                MarcaServicios.getInstancia().crear(marca3);
+                Marca marca4 = new Marca("ALDRICH");
+                MarcaServicios.getInstancia().crear(marca4);
+                Marca marca5 = new Marca("TMTR");
+                MarcaServicios.getInstancia().crear(marca5);
+                Marca marca6 = new Marca("ESTANDAR");
+                MarcaServicios.getInstancia().crear(marca6);
             }
             if (UsuarioServicios.getInstancia().existe("david")){
 
@@ -227,6 +242,15 @@ public class Odaca {
 //            }
         } catch (NullPointerException e) {
 //            runMuestra();
+            Usuario usuario = new Usuario("admin", "Admin");
+            usuario.setEmail("admin@odaca.com.do");
+            usuario.setPerfil("Admin");
+            usuario.setMunicipio("Moca");
+            usuario.setDireccion("Paso de moca");
+            usuario.setTelefono("8098230775");
+            usuario.setNombreCompania("Importadora Odaca");
+            usuario.setDocumento("125562");
+            Usuario aux = RegistrarVendedor(usuario, "admin@odaca.com.do", "admin1234");
         }
 
 

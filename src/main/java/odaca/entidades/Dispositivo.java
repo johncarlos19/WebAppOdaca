@@ -15,16 +15,34 @@ public class Dispositivo implements Identifiable<String> {
     @GeneratedValue(generator = "cli-generator",strategy = GenerationType.AUTO)
     @GenericGenerator(name = "cli-generator", parameters = {@org.hibernate.annotations.Parameter(name = "prefix", value = "DIV"),@org.hibernate.annotations.Parameter(name = "longitud", value = "10")}
             , strategy = "odaca.entidades.MyGenerator")
-    private String iddevice;
-    private String user;
+    private String idDevice;
+
     private String useragent;
     private String numberValidate;
+    private String usuario;
     private boolean validate = false;
     @CreationTimestamp
     private Timestamp fecha_registro;
     private Timestamp fechaExpiracion;
 
     public Dispositivo() {
+    }
+
+
+    public Dispositivo(String idDevice, String useragent, String numberValidate, String user, boolean validate) {
+        this.idDevice = idDevice;
+        this.useragent = useragent;
+        this.numberValidate = numberValidate;
+        this.usuario = usuario;
+        this.validate = validate;
+    }
+
+    public String getIdDevice() {
+        return idDevice;
+    }
+
+    public void setIdDevice(String idDevice) {
+        this.idDevice = idDevice;
     }
 
     public String getNumberValidate() {
@@ -35,20 +53,14 @@ public class Dispositivo implements Identifiable<String> {
         this.numberValidate = numberValidate;
     }
 
-    public String getIddevice() {
-        return iddevice;
+
+
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setIddevice(String iddevice) {
-        this.iddevice = iddevice;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getUseragent() {
@@ -85,6 +97,6 @@ public class Dispositivo implements Identifiable<String> {
 
     @Override
     public String getId() {
-        return iddevice;
+        return idDevice;
     }
 }

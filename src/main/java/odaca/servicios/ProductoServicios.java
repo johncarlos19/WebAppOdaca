@@ -1,6 +1,7 @@
 package odaca.servicios;
 
 import odaca.entidades.Producto;
+import odaca.entidades.Ubicacion;
 import odaca.entidades.Usuario;
 import odaca.jsonObject.ProductoJson;
 import org.hibernate.Session;
@@ -62,7 +63,7 @@ public class ProductoServicios extends GestionadDB<Producto>{
         try {
 
             try {
-                Query query = session.createQuery("select p from Producto p  inner join Foto f on f.idProducto = p.codigo or f.idProductoOri = p.codigo  inner join p.ubicacionList ub where  p.codigo = :id group by p order by p.codigo, ub.ubicacionNow asc  " );
+                Query query = session.createQuery("select p from Producto p  inner join Foto f on f.idProducto.id = p.id or f.idProductoOri.id  = p.id  inner join p.ubicacionList ub where  p.codigo = :id group by p order by p.id, ub.ubicacionNow asc  " );
                 query.setParameter("id",id);
 
                 //query.setParameter("nombre", apellido+"%");
@@ -70,11 +71,12 @@ public class ProductoServicios extends GestionadDB<Producto>{
                 System.out.println("\n\n\nLa cantidad es:"+lista.getUbicacionList().size());
             }catch (Exception e){
                 e.printStackTrace();
-                Query query = session.createQuery("select p from Producto p  inner join Foto f on f.idProducto = p.codigo or f.idProductoOri = p.codigo  where  p.codigo = :id group by p order by p.codigo desc  " );
+                Query query = session.createQuery("select p from Producto p  inner join Foto f on f.idProducto.id  = p.id or f.idProductoOri.id  = p.id  where  p.codigo = :id group by p order by p.id desc  " );
                 query.setParameter("id",id);
 
                 //query.setParameter("nombre", apellido+"%");
                 lista = (Producto) query.getSingleResult();
+                lista.setUbicacionList(new ArrayList<Ubicacion>());
             }
 
 
@@ -112,7 +114,7 @@ public class ProductoServicios extends GestionadDB<Producto>{
 //        EntityManager em = getEntityManager();
         try {
 
-            Query query = session.createQuery("select p from Producto p  order by p.codigo desc " );
+            Query query = session.createQuery("select p from Producto p  order by p.id desc " );
 //            query.setParameter("id",id);
 
             //query.setParameter("nombre", apellido+"%");
@@ -130,7 +132,7 @@ public class ProductoServicios extends GestionadDB<Producto>{
 //        EntityManager em = getEntityManager();
         try {
 
-            Query query = session.createQuery("select p from Producto p  inner join p.foto f where f.idProducto.codigo = p.codigo order by p.codigo desc " );
+            Query query = session.createQuery("select p from Producto p  inner join p.foto f where f.idProducto.id = p.id order by p.id desc " );
 //            query.setParameter("id",id);
 
             //query.setParameter("nombre", apellido+"%");
@@ -241,7 +243,7 @@ public class ProductoServicios extends GestionadDB<Producto>{
 //        EntityManager em = getEntityManager();
         try {
 
-            Query query = session.createQuery("select p from Producto p  inner join p.fotoOriginal f where f.idProductoOri.codigo = p.codigo order by p.codigo desc " );
+            Query query = session.createQuery("select p from Producto p  inner join p.fotoOriginal f where f.idProductoOri.id  = p.id order by p.id desc " );
 //            query.setParameter("id",id);
 
             //query.setParameter("nombre", apellido+"%");

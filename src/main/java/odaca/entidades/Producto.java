@@ -10,12 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Producto implements Identifiable<String>{
+public class Producto {
 
+//    @Id
+//    @GeneratedValue(generator = "cli-generator",strategy = GenerationType.AUTO)
+//    @GenericGenerator(name = "cli-generator", parameters = {@org.hibernate.annotations.Parameter(name = "prefix", value = "PRO"),@org.hibernate.annotations.Parameter(name = "longitud", value = "10")}
+//            , strategy = "odaca.entidades.MyGenerator")
     @Id
-    @GeneratedValue(generator = "cli-generator",strategy = GenerationType.AUTO)
-    @GenericGenerator(name = "cli-generator", parameters = {@org.hibernate.annotations.Parameter(name = "prefix", value = "PRO"),@org.hibernate.annotations.Parameter(name = "longitud", value = "10")}
-            , strategy = "odaca.entidades.MyGenerator")
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private long id;
     private String codigo;
     private String nombre;
     private String referencia;
@@ -86,6 +89,14 @@ public class Producto implements Identifiable<String>{
 
         productoJson.setModelos(modelos1);
         return productoJson;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public ProductoModelo addModelo(Modelo modelo){
@@ -311,8 +322,5 @@ public class Producto implements Identifiable<String>{
         this.ubicacionList = ubicacionList;
     }
 
-    @Override
-    public String getId() {
-        return codigo;
-    }
+
 }

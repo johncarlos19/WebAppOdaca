@@ -32,7 +32,7 @@ public class ProductoActionServicios extends GestionadDB<ProductoAction>{
 //        EntityManager em = getEntityManager();
         try {
 
-            Query query = session.createQuery("select p from Producto p,ProductoAction pa inner join p.foto f where f.idProducto.codigo = p.codigo and pa.codigoProducto = p.codigo and pa.tipo = :tipo group by p order by p.codigo asc " );
+            Query query = session.createQuery("select p from Producto p,ProductoAction pa inner join p.foto f where f.idProducto.id = p.id and pa.codigoProducto = p.codigo and pa.tipo = :tipo group by p order by p.id asc " );
             query.setParameter("tipo",tipo);
 
             //query.setParameter("nombre", apellido+"%");
@@ -50,7 +50,7 @@ public class ProductoActionServicios extends GestionadDB<ProductoAction>{
 //        EntityManager em = getEntityManager();
         try {
 
-            Query query = session.createQuery("select p from Producto p,ProductoAction pa inner join p.foto f where f.idProducto.codigo = p.codigo and pa.codigoProducto = p.codigo and pa.tipo = :tipo  order by p.codigo asc " );
+            Query query = session.createQuery("select p from Producto p,ProductoAction pa inner join p.foto f where f.idProducto.id = p.id and pa.codigoProducto = p.codigo and pa.tipo = :tipo  order by p.id asc " );
             query.setParameter("tipo",tipo);
 
             //query.setParameter("nombre", apellido+"%");
